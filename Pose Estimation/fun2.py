@@ -45,16 +45,22 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             landmarks = results.pose_landmarks.landmark
 
             # Get coordinates
-            shoulder = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
-                        landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
-            elbow = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
-                     landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
-            wrist = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
-                     landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
+            shoulder = [landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].x,
+                        landmarks[mp_pose.PoseLandmark.RIGHT_SHOULDER.value].y]
+            elbow = [landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].x,
+                     landmarks[mp_pose.PoseLandmark.RIGHT_ELBOW.value].y]
+            wrist = [landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].x,
+                     landmarks[mp_pose.PoseLandmark.RIGHT_WRIST.value].y]
 
+            shoulder1 = [landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].x,
+                        landmarks[mp_pose.PoseLandmark.LEFT_SHOULDER.value].y]
+            elbow1 = [landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_ELBOW.value].y]
+            wrist1 = [landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].x,
+                     landmarks[mp_pose.PoseLandmark.LEFT_WRIST.value].y]
             # Calculate angle
             angle = calculate_angle(shoulder, elbow, wrist)
-
+            angle1 = calculate_angle(shoulder1, elbow1, wrist1)
             # Visualize angle
             cv2.putText(image, str(angle),
                         tuple(np.multiply(elbow, [640, 480]).astype(int)),
@@ -62,9 +68,9 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
                         )
 
             # Curl counter logic
-            if angle > 160:
+            if angle > 160 and angle1 > 160:
                 stage = "down"
-            if angle < 30 and stage == 'down':
+            if (( angle > 160 and angle1 < 30 ) or (angle < 30 and angle1 > 160) or (angle < 30 and angle1 < 30) )and stage == 'down':
                 stage = "up"
                 counter += 1
                 print(counter)
