@@ -46,10 +46,11 @@ def standing_or_lying_down(Lhip, Rhip, Lknee, Rknee):
 cap = cv2.VideoCapture(0)
 
 # Variables required
-state = None # 1 for standing, 0 for lying down, 2 for n/a
+state = None
 status = {0: "Lying Down",
           1: "Standing Up",
-          2: "N/A"
+          2: "N/A",
+          3: "Sitting Down"
           }
 
 # Setup mediapipe instance
@@ -112,6 +113,8 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             # Check if both angle is close enough to 180 degree
             if Langle1 > 160 and Rangle1 > 160 and Langle2 > 160 and Rangle2 > 160:
                 state = standing_or_lying_down(Lhip, Rhip, Lknee, Rknee)
+            elif 80 < Langle2 < 150 and 80 < Rangle2 < 150:
+                state = 3
             else:
                 state = 2
 
@@ -121,7 +124,7 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             #             tuple(np.multiply(Rknee, [640, 480]).astype(int)),
             #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
             #             )
-            #debugging and printing of coordinates
+
             # print("Left Hip x: ", Lhip[0], "\nLeft Hip y: ", Lhip[1])
             # print("\nLeft Knee x: ", Lknee[0], "\nLeft Knee y: ", Lknee[1])
             # print("\nRight Hip x: ", Rhip[0], "\nRight Hip y: ", Rhip[1])
