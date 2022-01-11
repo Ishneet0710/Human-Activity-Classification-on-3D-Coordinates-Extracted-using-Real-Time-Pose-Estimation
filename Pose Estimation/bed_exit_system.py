@@ -1,6 +1,7 @@
 import cv2
 import mediapipe as mp
 import numpy as np
+from time import sleep
 mp_drawing = mp.solutions.drawing_utils
 mp_pose = mp.solutions.pose
 
@@ -19,38 +20,78 @@ def calculate_angle(a, b, c):
     return angle
 
 
-def standing_or_lying_down(Lhip, Rhip, Lknee, Rknee):
-    # Given angle close enough to 180 degrees (Logic later on)
-    # returns 1 if standing, 0 if lying and 2 if neither (i.e., Michael Jackson lol)
-
-    # Check for standing: hip & knee within certain horizontal distance
-    # Do this for both L and R
-
-    # Check for lying down: hip & knee within certain vertical distance
+def isStanding(Lhip, Rhip, Lknee, Rknee):
+    # Returns 1 - Standing; 0 - Not Standing
+    # Check for Standing: hip & knee within certain horizontal distance
     # Do this for both L and R
     epsilon_stand = 20
-    epsilon_lying = 50
-
-    # Test for Standing
     if np.abs(Lhip[0] - Lknee[0])<epsilon_stand and np.abs(Rhip[0] - Rknee[0]) < epsilon_stand:
         return 1
+    return 0
 
-    # Test for Lying Down
-    if np.abs(Lhip[1] - Lknee[1]) < epsilon_lying and np.abs(Rhip[1] - Rknee[1]) < epsilon_lying:
+
+def isLyingDown(Lshoulder, Rshoulder, Lhip, Rhip):
+    # Returns 1 - Lying Down; 0 - Not Lying Down
+    # Test for Lying Down: shoulder & hip within certain vertical distance
+    # Do this for both L and R
+    epsilon_lying = 50
+    if np.abs(Lhip[1] - Lshoulder[1]) < epsilon_lying and np.abs(Rhip[1] - Rshoulder[1]) < epsilon_lying:
+        return 1
+    return 0
+
+
+def isSitting(Lknee, Rknee, Lhip, Rhip, Lshoulder, Rshoulder):
+    # Returns 0: Sitting; 1 - Not Sitting
+    # Test for sitting: angle between knee, hip, shoulder close to 90 degrees AND knee, hip within certain vertical distance
+    # Do for L and R
+
+    angleL = calculate_angle(Lknee, Lhip, Lshoulder)
+    angleR = calculate_angle(Rknee, Rhip, Rshoulder)
+    epsilon_sitting = 50
+
+    if not (80 < angleL < 150 or 80 < angleR < 150):
         return 0
+    if np.abs(Lhip[1] - Lknee[1]) < epsilon_sitting and np.abs(Rhip[1] - Rknee[1]) < epsilon_sitting:
+        return 1
+    return 0
 
-    # If neither standing nor lying down return 2
-    return 2
+
+def hasFallen(states):
+    # Called ONLY when current state is 0 (lying down)
+    # states: array with at most 10 elements
+    # Test for Fallen: Go from standing (1) to lying down (0) within
+    # 10 most recent states (i.e., check through states for element 1)
+    # Note that a linear scan is sufficient as len(states) < 6 (small)
+    for element in states:
+        if element == 1 or element == 3:
+            return 1
+    return 0
+
+
+def obtain_state(Lknee, Rknee, Lhip, Rhip, Lshoulder, Rshoulder, states):
+    # Returns 0 - Lying Down; 1 - Standing Up; 2 - Sitting Down; 3 - Fallen; 4 - None of these (N/A)
+    if isLyingDown(Lshoulder, Rshoulder, Lhip, Rhip):
+        if hasFallen(states):
+            return 3
+        return 0
+    if isStanding(Lhip, Rhip, Lknee, Rknee):
+        return 1
+    if isSitting(Lknee, Rknee, Lhip, Rhip, Lshoulder, Rshoulder):
+        return 2
+    return 4
 
 
 cap = cv2.VideoCapture(0)
 
 # Variables required
 state = None
+prev_states = []
 status = {0: "Lying Down",
           1: "Standing Up",
-          2: "N/A",
-          3: "Sitting Down"
+          2: "Sitting Down",
+          3: "Fallen",
+          4: "N/A",
+          None: "Waiting..."
           }
 
 # Setup mediapipe instance
@@ -104,38 +145,25 @@ with mp_pose.Pose(min_detection_confidence=0.5, min_tracking_confidence=0.5) as 
             Lhip[1] *= image_height
             Lknee[0] *= image_width
             Lknee[1] *= image_height
+            Lshoulder[0] *= image_width
+            Lshoulder[1] *= image_height
 
             Rhip[0] *= image_width
             Rhip[1] *= image_height
             Rknee[0] *= image_width
             Rknee[1] *= image_height
+            Rshoulder[0] *= image_width
+            Rshoulder[1] *= image_height
 
-            # Check if both angle is close enough to 180 degree
-            if Langle1 > 160 and Rangle1 > 160 and Langle2 > 160 and Rangle2 > 160:
-                state = standing_or_lying_down(Lhip, Rhip, Lknee, Rknee)
-            elif 80 < Langle2 < 150 and 80 < Rangle2 < 150:
-                state = 3
-            else:
-                state = 2
+            # Ensures prev_states stays within 10 elements
+            if len(prev_states) > 5:
+                while len(prev_states) > 5:
+                    prev_states.pop(0)
 
+            # Get current state and add to prev_states array
+            state = obtain_state(Lknee, Rknee, Lhip, Rhip, Lshoulder, Rshoulder, prev_states)
+            prev_states.append(state)
 
-            # # Visualize angle
-            # cv2.putText(image, str(Rangle),
-            #             tuple(np.multiply(Rknee, [640, 480]).astype(int)),
-            #             cv2.FONT_HERSHEY_SIMPLEX, 0.5, (255, 255, 255), 2, cv2.LINE_AA
-            #             )
-
-            # print("Left Hip x: ", Lhip[0], "\nLeft Hip y: ", Lhip[1])
-            # print("\nLeft Knee x: ", Lknee[0], "\nLeft Knee y: ", Lknee[1])
-            # print("\nRight Hip x: ", Rhip[0], "\nRight Hip y: ", Rhip[1])
-            # print("\nRight Knee x: ", Rknee[0], "\nRight Knee y: ", Rknee[1])
-            # print("\n")
-            # if standing_or_lying_down(Lhip, Rhip, Lknee, Rknee) == 2:
-            #     print("N/A")
-            # elif standing_or_lying_down(Lhip, Rhip, Lknee, Rknee):
-            #     print("Standing")
-            # elif standing_or_lying_down(Lhip, Rhip, Lknee, Rknee) == 0:
-            #     print("Lying Down")
 
         except:
             pass
