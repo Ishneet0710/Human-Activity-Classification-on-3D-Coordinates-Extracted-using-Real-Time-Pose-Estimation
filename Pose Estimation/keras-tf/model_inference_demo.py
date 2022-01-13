@@ -784,7 +784,7 @@ if __name__ == '__main__':
     all_model = './model_weights/all_model/08.31_xyzv/3_categories_pose'
     tflite_model = './tflite_model/model.tflite'
 
-    cap = cv2.VideoCapture(video_path)
+    cap = cv2.VideoCapture(0)
 
     # test_model_inference(input_csv=test_file, pc_model=all_model, tflite_model=tflite_model)
 
