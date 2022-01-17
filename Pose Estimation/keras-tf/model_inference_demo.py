@@ -155,8 +155,7 @@ def display_tflite_classify_pose(cap, model):
                     }
                     input_dict = {name: np.expand_dims(np.array(value, dtype=np.float32), axis=0) for name, value in dict_p12_to_p33.items()}
                     
-                    # Make Detections
-                    # 0: cat_camel, 1: bridge_exercise, 2: heel_raise.
+
                     result = tflite_inference(input=input_dict, model=model)
                     body_language_class = np.argmax(result)
                     # body_language_prob = round(result[np.argmax(result)], 2)*100
@@ -179,8 +178,6 @@ def display_tflite_classify_pose(cap, model):
                         [1280,480]
                     ).astype(int))
 
-                    # cv2.rectangle(影像, 頂點座標, 對向頂點座標, 顏色, 線條寬度).
-                    # cv2.putText(影像, 文字, 座標, 字型, 大小, 顏色, 線條寬度, 線條種類).
                     cv2.rectangle(image, 
                                 (coords[0], coords[1]+5), 
                                 (coords[0]+200, coords[1]-30), 
@@ -398,11 +395,11 @@ def save_tflite_classify_pose(cap, model, result_out):
                     body_language_prob = result[np.argmax(result)]
 
                     if str(body_language_class) == '0':
-                        pose_class = 'Cat camel' 
+                        pose_class = 'Standing' 
                     elif str(body_language_class) == '1':
-                        pose_class = 'Bridge exercise'
+                        pose_class = 'Sitting'
                     else:
-                        pose_class = 'Heel raise'
+                        pose_class = 'Lying'
                     
                     # print(f'calss: {body_language_class}, prob: {body_language_prob}')
 

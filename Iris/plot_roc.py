@@ -1,37 +1,4 @@
-"""
-=======================================
-Receiver Operating Characteristic (ROC)
-=======================================
 
-Example of Receiver Operating Characteristic (ROC) metric to evaluate
-classifier output quality.
-
-ROC curves typically feature true positive rate on the Y axis, and false
-positive rate on the X axis. This means that the top left corner of the plot is
-the "ideal" point - a false positive rate of zero, and a true positive rate of
-one. This is not very realistic, but it does mean that a larger area under the
-curve (AUC) is usually better.
-
-The "steepness" of ROC curves is also important, since it is ideal to maximize
-the true positive rate while minimizing the false positive rate.
-
-ROC curves are typically used in binary classification to study the output of
-a classifier. In order to extend ROC curve and ROC area to multi-label
-classification, it is necessary to binarize the output. One ROC
-curve can be drawn per label, but one can also draw a ROC curve by considering
-each element of the label indicator matrix as a binary prediction
-(micro-averaging).
-
-Another evaluation measure for multi-label classification is
-macro-averaging, which gives equal weight to the classification of each
-label.
-
-.. note::
-
-    See also :func:`sklearn.metrics.roc_auc_score`,
-             :ref:`sphx_glr_auto_examples_model_selection_plot_roc_crossval.py`
-
-"""
 
 import numpy as np
 import matplotlib.pyplot as plt
