@@ -289,9 +289,9 @@ def check_csv_contents(file):
 
 if __name__ == '__main__':
     
-    # Add 3 categories of pose: cat_camel, bridge, heel_raise.
+    # Add 3 categories of pose: standing, lying, sitting
     add_class = 'lying'
-    video_file_name = 'lying'
+    video_file_name = 'lying_06'
     dataset_csv_file = './dataset/coords_dataset.csv'
 
     video_path = "./resource/video/" + video_file_name +".mp4"

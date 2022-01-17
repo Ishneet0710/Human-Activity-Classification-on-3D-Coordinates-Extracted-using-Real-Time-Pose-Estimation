@@ -375,9 +375,9 @@ if __name__ == '__main__':
     model.compile(optimizer='sgd', loss=keras.losses.SparseCategoricalCrossentropy(from_logits=False), metrics=['accuracy'])
 
     # Model train.
-    model.fit(x=train_ds, epochs=25, verbose=2, validation_data=val_ds)
+    model.fit(x=train_ds, epochs=5, verbose=2, validation_data=val_ds)
     
-    losstraining, accuracytraining = model.evaluate(val_ds)
+    losstraining, accuracytraining = model.evaluate(train_ds)
 
     lossvalidation, accuracyvalidation = model.evaluate(val_ds)
     print(losstraining, accuracytraining)
@@ -389,11 +389,11 @@ if __name__ == '__main__':
 
     # # Option2: Save TFLite model. 
     # Convert the model.
-    #converter = tf.lite.TFLiteConverter.from_keras_model(model)
-    #tflite_model = converter.convert()
+    converter = tf.lite.TFLiteConverter.from_keras_model(model)
+    tflite_model = converter.convert()
 
     # Save the model.
-    #with open('model.tflite', 'wb') as f:
-        #f.write(tflite_model)
+    with open('model.tflite', 'wb') as f:
+        f.write(tflite_model)
 
-    #print('TFLite Model save done!')
+    print('TFLite Model save done!')

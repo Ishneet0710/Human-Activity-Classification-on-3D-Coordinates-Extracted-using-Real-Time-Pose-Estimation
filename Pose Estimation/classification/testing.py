@@ -44,7 +44,7 @@ def img_model_test(image, model):
 
 if __name__ == '__main__':
 
-    img = cv2.imread('./resource/imgs/lying.png')
+    img = cv2.imread('./resource/imgs/lying.jpg')
     model_weights = './model_weights/weights_body_language.pkl'
     
     # Load Model.

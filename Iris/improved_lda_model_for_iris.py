@@ -34,11 +34,16 @@ scores = cross_val_score(classifier, X, y, scoring='accuracy', cv=cv, n_jobs=-1)
 
 cm = confusion_matrix(y_test, y_pred)
 
+#probability score
+Y_pp = pd.DataFrame(classifier.predict_proba(X_test), columns=['class_0_pp', 'class_1_pp', 'class_2_pp'])
+
+
+
 #print the relevant parameters used to evaluate a models perfomance
 print("Train Accuracy:",classifier.score(X_train, y_train))
 print('Cross Validation Accuracy: %.3f (%.3f)' % (mean(scores), std(scores)))
 print("Test Accuracy:",accuracy_score(y_test, y_pred))
 print(cm)
 print(classification_report(y_test, y_pred))
-
+print(Y_pp.head())
 
