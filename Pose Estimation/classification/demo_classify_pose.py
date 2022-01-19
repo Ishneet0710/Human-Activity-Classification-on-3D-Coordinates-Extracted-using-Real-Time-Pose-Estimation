@@ -236,7 +236,7 @@ if __name__ == '__main__':
     video_path = "./resource/video/" + video_file_name +".mp4"
     output_video = video_file_name + "_out.mp4"
 
-    cap = cv2.VideoCapture(0)
+    cap = cv2.VideoCapture(video_path)
 
     # Load Model.
     with open(model_weights, 'rb') as f:
