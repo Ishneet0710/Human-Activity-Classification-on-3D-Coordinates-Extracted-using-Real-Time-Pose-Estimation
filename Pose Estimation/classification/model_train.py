@@ -14,7 +14,7 @@ def load_dataset(csv_data):
     df = pd.read_csv(csv_data)
     features = df.drop('class', axis=1) 
     target_value = df['class']          
-    x_train, x_test, y_train, y_test = train_test_split(features, target_value, test_size=0.3, random_state=42)
+    x_train, x_test, y_train, y_test = train_test_split(features, target_value, test_size=0.2, random_state=1337)
 
     return x_train, x_test, y_train, y_test
 
@@ -38,9 +38,7 @@ if __name__ == '__main__':
     
     pipelines = {
         'lr' : make_pipeline(StandardScaler(), LogisticRegression()),
-        'rc' : make_pipeline(StandardScaler(), RidgeClassifier()),
         'rf' : make_pipeline(StandardScaler(), RandomForestClassifier()),
-        'gb' : make_pipeline(StandardScaler(), GradientBoostingClassifier()),
     }
 
     fit_models = {}
@@ -50,13 +48,12 @@ if __name__ == '__main__':
         fit_models[key_algo] = model
     print('Training done.')
 
-    lr_predict = fit_models['lr'].predict(x_test)
+    rf_predict = fit_models['rf'].predict(x_test)
 
     # Save model weights.
     with open(model_weights, 'wb') as f:
-        pickle.dump(fit_models['lr'], f)
+        pickle.dump(fit_models['rf'], f)
     print('\nSave model done.')
     
     evaluate_model(fit_models, x_test, y_test)
-    print(confusion_matrix(y_test, lr_predict ))
-    print(classification_report(y_test, lr_predict))
+  

@@ -127,30 +127,3 @@ plt.title("Some extension of Receiver operating characteristic to multiclass")
 plt.legend(loc="lower right")
 plt.show()
 
-
-# %%
-# Area under ROC for the multiclass problem
-# .........................................
-# The :func:`sklearn.metrics.roc_auc_score` function can be used for
-# multi-class classification. The multi-class One-vs-One scheme compares every
-# unique pairwise combination of classes. In this section, we calculate the AUC
-# using the OvR and OvO schemes. We report a macro average, and a
-# prevalence-weighted average.
-y_prob = classifier.predict_proba(X_test)
-
-macro_roc_auc_ovo = roc_auc_score(y_test, y_prob, multi_class="ovo", average="macro")
-weighted_roc_auc_ovo = roc_auc_score(
-    y_test, y_prob, multi_class="ovo", average="weighted"
-)
-macro_roc_auc_ovr = roc_auc_score(y_test, y_prob, multi_class="ovr", average="macro")
-weighted_roc_auc_ovr = roc_auc_score(
-    y_test, y_prob, multi_class="ovr", average="weighted"
-)
-print(
-    "One-vs-One ROC AUC scores:\n{:.6f} (macro),\n{:.6f} "
-    "(weighted by prevalence)".format(macro_roc_auc_ovo, weighted_roc_auc_ovo)
-)
-print(
-    "One-vs-Rest ROC AUC scores:\n{:.6f} (macro),\n{:.6f} "
-    "(weighted by prevalence)".format(macro_roc_auc_ovr, weighted_roc_auc_ovr)
-)

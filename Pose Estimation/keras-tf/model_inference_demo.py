@@ -4,8 +4,23 @@ from tensorflow import keras
 import cv2 
 import mediapipe as mp
 import pandas as pd
-from model_train_pose import point
 import numpy as np
+
+def point():
+        x = [
+            'x12', 'x13', 'x14', 'x15', 'x16', 'x17', 'x18', 'x19', 'x20', 'x21', 'x22',
+            'x23', 'x24', 'x25', 'x26', 'x27', 'x28', 'x29', 'x30', 'x31', 'x32', 'x33',
+        ]
+        y = [
+            'y12', 'y13', 'y14', 'y15', 'y16', 'y17', 'y18', 'y19', 'y20', 'y21', 'y22',
+            'y23', 'y24', 'y25', 'y26', 'y27', 'y28', 'y29', 'y30', 'y31', 'y32', 'y33',
+        ]
+        z = [
+            'z12', 'z13', 'z14', 'z15', 'z16', 'z17', 'z18', 'z19', 'z20', 'z21', 'z22',
+            'z23', 'z24', 'z25', 'z26', 'z27', 'z28', 'z29', 'z30', 'z31', 'z32', 'z33',
+        ]
+        coords = [x, y, z]
+        return coords
 
 
 def display_tflite_classify_pose(cap, model):
@@ -234,7 +249,7 @@ def tflite_inference(input, model):
 if __name__ == '__main__':
 
     # 0: standing, 1: sitting, 2: lying
-    video_file_name = 'routine2'
+    video_file_name = 'Video'
     video_path = './video/'+ video_file_name + '.mp4'
     
     tflite_model = './tflite_model/model.tflite'

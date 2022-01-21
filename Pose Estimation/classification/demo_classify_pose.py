@@ -230,7 +230,7 @@ def save_display_classify_pose(cap, model, out_video):
 if __name__ == '__main__':
 
     # Test video file name: cat_camel2, bridge2, heel_raise2.
-    video_file_name = "routine2"
+    video_file_name = "Video"
     model_weights = './model_weights/weights_body_language.pkl'
     
     video_path = "./resource/video/" + video_file_name +".mp4"
