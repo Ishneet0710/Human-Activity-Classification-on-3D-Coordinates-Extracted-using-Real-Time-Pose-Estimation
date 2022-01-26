@@ -1,0 +1,145 @@
+References:
+
+Article on BlazePose:
+
+	https://medium.com/axinc-ai/blazepose-a-3d-pose-estimation-model-d8689d06b7c4
+
+Paper on  Generative 3D Human Shape and Articulated Pose Models:
+
+	 https://openaccess.thecvf.com/content_CVPR_2020/papers/Xu_GHUM__GHUML_Generative_3D_Human_Shape_and_Articulated_Pose_CVPR_2020_paper.pdf
+
+Paper on Real-Time Body Pose tracking:
+
+	https://arxiv.org/pdf/2006.10204.pdf 
+
+Article on 3D Pose Detection with Medipie Blazepose and TensorFlow:
+
+	https://blog.tensorflow.org/2021/08/3d-pose-detection-with-mediapipe-blazepose-ghum-tfjs.html
+
+Article on Medipipe Pose Estimation:
+
+	https://google.github.io/mediapipe/solutions/pose.html 
+
+Article on PoseResnet, a Top-Down Machine LearningModel for Pose Estimation:
+
+	https://medium.com/axinc-ai/poseresnet-a-top-down-machine-learning-model-for-skeletal-detection-9454f391ae4d
+
+Installation Process of OpenPose:
+
+	https://github.com/CMU-Perceptual-Computing-Lab/openpose/blob/master/doc/installation/0_index.md 
+
+Specifications of MoveNet.SinglePose:
+
+	https://storage.googleapis.com/movenet/MoveNet.SinglePose%20Model%20Card.pdf 
+
+Installation Process of MoveNet.SinglePose.Thunder:
+
+	https://tfhub.dev/google/lite-model/movenet/singlepose/lightning/3 
+
+Tutorial for MoveNet:
+
+	https://analyticsindiamag.com/how-to-do-pose-estimation-with-movenet/ 
+
+Paper on Deep 3D human pose estimation:
+
+	https://www.sciencedirect.com/science/article/pii/S1077314221000692
+
+Article on OpenPose using OpenCV:
+
+	https://learnopencv.com/deep-learning-based-human-pose-estimation-using-opencv-cpp-python/
+
+Article on Human Pose Estimation:
+
+	https://towardsdatascience.com/human-pose-estimation-simplified-6cfd88542ab3
+
+Article on Retraining image classification model:
+
+	https://medium.com/@deve321/how-to-retrain-an-image-classification-model-by-using-transfer-learning-b47f774efdaa
+
+Article on Transfer Learning:
+
+	https://towardsdatascience.com/transfer-learning-from-pre-trained-models-f2393f124751
+
+Article Image Classification:
+
+	https://www.analyticsvidhya.com/blog/2020/08/top-4-pre-trained-models-for-image-classification-with-python-code/
+
+Article on Measuring Social Distance:
+
+	https://towardsdatascience.com/monitoring-social-distancing-using-ai-c5b81da44c9f
+
+Article on Human Pose Estimation Similarity:
+
+	https://medium.com/@cavaldovinos/human-pose-estimation-pose-similarity-dc8bf9f78556
+
+Tutorial On Iris Dataset:
+
+	https://towardsdatascience.com/classification-basics-walk-through-with-the-iris-data-set-d46b0331bf82
+
+Tutorial On Iris Dataset (II):
+
+	https://notebook.community/rahulavadhoot/Portfolio/projects/machine%20learning/iris
+
+Article on Decision Trees:
+
+	https://en.m.wikipedia.org/wiki/Decision_tree#:~:text=A%20decision%20tree%20is%20a,only%20contains%20conditional%20control%20statements.
+
+Paper on Phillip's AED Decision Tree:
+
+	https://www.documents.philips.com/assets/20191003/6a6004247e6a426e97c5aadb01784426.pdf
+
+Tutorial on Saliency Maps in Python:
+
+	https://towardsdatascience.com/practical-guide-for-visualizing-cnns-using-saliency-maps-4d1c2e13aeca
+
+Tutorial on OpenCV Saliency Module:
+
+	https://www.pyimagesearch.com/2018/07/16/opencv-saliency-detection/
+
+Article on Recent Developments in Saliency:
+
+	https://analyticsindiamag.com/what-are-saliency-maps-in-deep-learning/
+
+Paper on CNNs in Computer Vision being biased twoards texture:
+
+	https://arxiv.org/abs/1811.12231
+
+Article on how CNN bias is being tackled:
+
+	https://medium.com/1-minute-papers/imagenet-trained-cnns-are-biased-towards-texture-increasing-shape-bias-improves-accuracy-and-e53ae935a00c
+
+Article on Pearson Product-Moment Correlation:
+
+	 https://statistics.laerd.com/statistical-guides/pearson-correlation-coefficient-statistical-guide.php
+
+Article on Correlation Matrix:
+
+	https://www.displayr.com/what-is-a-correlation-matrix
+
+Article on Cholesky decomposition:
+
+	https://en.wikipedia.org/wiki/Cholesky_decomposition
+
+Tutorial on Numpy Covariance Functions:
+
+	https://www.geeksforgeeks.org/python-numpy-cov-function/
+
+Article on ROC Curves and Precision Recall Curves:
+
+	https://machinelearningmastery.com/roc-curves-and-precision-recall-curves-for-classification-in-python/
+
+Tutorial on Imbalanced Dtatset:
+
+	https://www.tensorflow.org/tutorials/structured_data/imbalanced_data 
+
+Tutorial on MNIST Dataset:
+
+	https://www.tensorflow.org/tutorials/keras/classification
+
+Article on Binary Cross Entropy:
+
+	https://www.analyticsvidhya.com/blog/2021/03/binary-cross-entropy-log-loss-for-binary-classification/
+
+
+
+

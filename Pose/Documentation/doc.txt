@@ -1,0 +1,6 @@
+to install the dependencies just export the conda yml file in the root directory
+to run the files just use the command, python (name-of-file).py
+for the data collection, just change the pose_dataset_create.py file according to your video. then run the file and it will extract 
+coordinates from the frames in the video.
+for the analysis part, just change the code accordingly to your csv file for your dataset and run the training.py files to train the model
+to see the real-time classification of your model run the testing.py files.

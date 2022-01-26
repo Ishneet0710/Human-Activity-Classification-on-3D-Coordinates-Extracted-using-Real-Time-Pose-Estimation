@@ -1,0 +1,2 @@
+to install the dependencies just export the conda yml file in the root directory
+to run the files just use the command, python (name-of-file).py
